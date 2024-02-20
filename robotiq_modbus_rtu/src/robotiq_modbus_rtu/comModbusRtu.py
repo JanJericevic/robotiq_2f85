@@ -52,7 +52,7 @@ class communication:
     def __init__(self, retry=False):
         """Setting the retry parameter to True will lead to retries until an answer is delivered."""
         self.client = None
-        self.retry = retry
+        self.retry = True
 
     def connectToDevice(self, device):
         """Connection to the client - the method takes the IP address (as a string, e.g. '192.168.1.11') as an argument."""
