@@ -132,8 +132,17 @@ def publisher():
     """Main loop which requests new commands and publish them on the Robotiq2FGripperRobotOutput topic."""
     rospy.init_node("Robotiq2FGripperSimpleController")
 
+    # pub = rospy.Publisher(
+    #     "Robotiq2FGripperRobotOutput", outputMsg.Robotiq2FGripper_robot_output, queue_size=10
+    # )
+
+    if rospy.has_param('/robot_namespace_prefix'):
+        namespace = rospy.get_param('/robot_namespace_prefix')
+        if namespace == "":
+            namespace = "/"
+
     pub = rospy.Publisher(
-        "Robotiq2FGripperRobotOutput", outputMsg.Robotiq2FGripper_robot_output, queue_size=10
+        namespace + "gripper_control/output", outputMsg.Robotiq2FGripper_robot_output, queue_size=10
     )
 
     command = outputMsg.Robotiq2FGripper_robot_output()
