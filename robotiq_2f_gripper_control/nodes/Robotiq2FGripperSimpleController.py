@@ -136,13 +136,22 @@ def publisher():
     #     "Robotiq2FGripperRobotOutput", outputMsg.Robotiq2FGripper_robot_output, queue_size=10
     # )
 
-    if rospy.has_param('/robot_namespace_prefix'):
-        namespace = rospy.get_param('/robot_namespace_prefix')
+    if rospy.has_param('/robot_namespace'):
+        namespace = rospy.get_param('/robot_namespace')
         if namespace == "":
-            namespace = "/"
+            namespace = ""
+    else:
+        namespace = ""
+
+    if rospy.has_param('/robot_arm_namespace'):
+        arm_namespace = rospy.get_param('/robot_arm_namespace')
+        if arm_namespace == "":
+            arm_namespace = ""
+    else:
+       arm_namespace = ""
 
     pub = rospy.Publisher(
-        namespace + "gripper_control/output", outputMsg.Robotiq2FGripper_robot_output, queue_size=10
+        namespace + arm_namespace + "/gripper_control/output", outputMsg.Robotiq2FGripper_robot_output, queue_size=10
     )
 
     command = outputMsg.Robotiq2FGripper_robot_output()
